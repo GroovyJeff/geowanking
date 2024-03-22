@@ -1,0 +1,40 @@
+<link rel="stylesheet" href="../includes/leaflet.css" />
+<script src="../includes/leaflet.js"></script>
+
+<div id="main"></div>
+<div id="map" style="height: 600px;"></div>
+ 
+<script>
+
+// reference the map globally
+
+const map = L.map('map').setView([0, 0], 2);
+
+// associative array of overlays
+
+overlays = {};
+
+// creates an option for a given overlay
+
+function create_overlay(tiles, name, tag, options={}) {
+
+ document.getElementById("main").innerHTML += `${name}: <input type="range" id="${tag}" min="0" max="1" step="0.01" value="0.5" onchange="update(event)" /><br/>`;
+
+ // todo: make sure these bounds are appropriate for Mercator
+
+ overlays[tag] = L.tileLayer(tiles, options)
+ overlays[tag].setOpacity(0.5)
+ overlays[tag].addTo(map)
+}
+
+function update(e) {
+ overlays[e.target.id].setOpacity(e.target.value)
+}
+
+create_overlay('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', "OSM", "osm")
+
+create_overlay('statesTiles/{z}/{x}/{y}.png', "states", "states")
+
+</script>
+
+</body>
