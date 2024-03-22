@@ -33,7 +33,7 @@ function update(e) {
 
 create_overlay('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', "OSM", "osm")
 
-create_overlay('statesTiles/{z}/{x}/{y}.png', "states", "states")
+create_overlay('statesTiles/{z}/{x}/{y}.png', "states", "states", {maxNativeZoom: 7})
 
 </script>
 
